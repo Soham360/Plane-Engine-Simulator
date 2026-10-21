@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {defaults,presets,atmosphere,cycle,validateBuild} from '../engine.js';
+test('standard atmosphere agrees with sea level and tropopause reference values',()=>{assert.ok(Math.abs(atmosphere(0).density-1.225)<.002);assert.ok(Math.abs(atmosphere(11000).pressure-22632)<10);assert.equal(atmosphere(15000).temperature,216.64999999999998)});
+test('engine shutdown gives zero powered thrust and fuel',()=>{const r=cycle(defaults,0);assert.equal(r.thrust,0);assert.equal(r.fuel,0);assert.equal(r.rpm,0)});
+test('increasing power increases sea-level thrust and fuel',()=>{const low=cycle(defaults,.4),high=cycle(defaults,1);assert.ok(high.thrust>low.thrust);assert.ok(high.fuel>low.fuel);assert.ok(high.stations[3]>high.stations[4]);assert.ok(high.stations[2]>high.stations[1])});
+test('altitude reduces available thrust under otherwise equal conditions',()=>assert.ok(cycle({...defaults,altitude:11000},.8).thrust<cycle(defaults,.8).thrust));
+test('presets and design bounds yield finite outputs and conserve mass splits',()=>{for(const p of Object.values(presets))for(const altitude of [0,11000,15000])for(const mach of [0,.78,.95])for(const n of [0,.12,.5,1]){const r=cycle({...p,altitude,mach},n);for(const key of ['thrust','fuel','rpm','egt','tsfc','coreV','bypassV'])assert.ok(Number.isFinite(r[key]),key);assert.ok(Math.abs(r.mass-r.coreMass-r.bypassMass)<1e-8);if(p.architecture==='turbojet')assert.equal(r.bypassMass,0)}});
+test('build import rejects missing, out of range, malicious, or nonfinite settings',()=>{assert.deepEqual(validateBuild(defaults),defaults);for(const patch of [{diameter:-1},{throttle:NaN},{stages:3.5},{architecture:'rocket'},{finish:'url(x)'},{mach:Infinity}])assert.throws(()=>validateBuild({...defaults,...patch}));assert.throws(()=>validateBuild({}));assert.equal(validateBuild({...defaults,architecture:'turbojet'}).bypass,0)});

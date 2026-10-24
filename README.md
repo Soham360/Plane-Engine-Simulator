@@ -29,3 +29,8 @@ Keyboard: Tab to controls; arrow keys adjust sliders and switch workbench tabs. 
 ## Credits
 
 Three.js and OrbitControls use the MIT license in `vendor/THREE-LICENSE.txt`. The workbench layout is inspired by Soham360's Robot-Arm-Simulator. All engine geometry is generated in this project.
+
+## Workspace layout
+
+The simulator uses a viewport-sized dashboard inspired by the wind tunnel simulator. The engine, live readings, scene toggles, component explanation and thrust graph fit alongside the active control tab on desktop. How it works opens a separate reading view without resetting the engine. On narrow screens, Engine & data / Controls switches between panes, with Component / Thrust graph instrument tabs. Very short displays or enlarged text retain contained scrolling so controls stay accessible.
+

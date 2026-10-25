@@ -34,3 +34,14 @@ Three.js and OrbitControls use the MIT license in `vendor/THREE-LICENSE.txt`. Th
 
 The simulator uses a viewport-sized dashboard inspired by the wind tunnel simulator. The engine, live readings, scene toggles, component explanation and thrust graph fit alongside the active control tab on desktop. How it works opens a separate reading view without resetting the engine. On narrow screens, Engine & data / Controls switches between panes, with Component / Thrust graph instrument tabs. Very short displays or enlarged text retain contained scrolling so controls stay accessible.
 
+
+## Detailed engine assemblies and named engines
+
+The procedural model now uses swept, twisted airfoil fan blades and instanced compressor/turbine blade rows, alternating fixed vanes, rotor disks, flanged cases and bolts, acoustic intake lining, annular combustor liners with cooling-hole details, fuel manifold and injectors, concentric shafts with bearing elements, accessory drive/pumps/oil-system hardware, exhaust frame/cone and bypass cowl. Major modules have separate ownership, transforms and selection materials. Up to fifteen assemblies can be inspected using the component picker, 3D picking or numbered exploded-view buttons. Inactive modules are omitted for architectures that do not use them.
+
+Exploded mode separates the gas-path modules axially and offsets the cowl, shafts, accessories and fuel system radially, with guide lines and automatic camera framing. Stationary vane rows do not rotate. Airflow is hidden while the gas path is disconnected. Animation, camera transitions and reassembly retain reduced-motion support.
+
+Named presets: CFM56-7B (737NG), GE90-115B (777), and Trent XWB (A350). Their published fan blade counts, shaft arrangements and compressor/turbine stage topology inform the geometry. Named engine identity is included in build JSON. Public manufacturer and technical-reference links appear under How it works → Real engines.
+
+These are original educational reconstructions, not manufacturer CAD, complete maintenance assemblies or licensed digital twins. Internal contours, non-fan blade counts, fasteners, service equipment, proportions and materials are illustrative. Changing geometry creates a modified study of the named engine. Thrust, fuel flow, temperatures and RPM remain the simplified teaching model rather than published engine performance; the temperature and pressure sliders are educational cycle inputs, not real operating limits.
+

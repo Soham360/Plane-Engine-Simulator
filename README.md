@@ -1,6 +1,6 @@
 # AERO — Plane Engine Simulator
 
-An interactive, customizable jet-engine workbench inspired by the AXIS Robot Arm Simulator. Built with vanilla JavaScript and Three.js; no package install is required. The pinned Three.js module loads from jsDelivr, so the 3D view needs an internet connection.
+An interactive, customizable jet-engine workbench inspired by the AXIS Robot Arm Simulator. Built with vanilla JavaScript and Three.js; no package install is required. Three.js is bundled locally, so the 3D view does not depend on a CDN.
 
 ## Explore
 

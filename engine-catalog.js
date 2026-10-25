@@ -22,4 +22,19 @@ export const ASSEMBLIES=[
  ['exhaust','Exhaust frame & core nozzle','Support struts, an exhaust cone and the core nozzle guide the hot flow leaving the turbines.'],
  ['nacelle','Fan cowl & bypass duct','The outer cowl encloses the bypass stream. The exploded view lifts the cowl away to expose internal assemblies.']
 ];
-export function assemblyLayout(config,exploded=0){const t=engineTopology(config);return ASSEMBLIES.map(([id,name,description],index)=>({id,name,description,index,active:!(id==='ipt'&&!t.ipt)&&!(id==='booster'&&!t.lpc)&&!(id==='lpt'&&!t.lpt)&&!(id==='nacelle'&&config.architecture==='turbojet'),offset:[(['inlet','fan','stators','booster','hpc','diffuser','combustor','hpt','ipt','lpt','exhaust'].indexOf(id)-5)*.7*exploded,0,0]})).map(p=>{if(p.id==='shafts')p.offset=[0,-1.3*exploded,1.3*exploded];if(p.id==='accessories')p.offset=[-.8*exploded,-1.6*exploded,-1.1*exploded];if(p.id==='fuel')p.offset=[.2*exploded,1.65*exploded,.8*exploded];if(p.id==='nacelle')p.offset=[0,2.7*exploded,-.4*exploded];return p});}
+export function assemblyLayout(config,exploded=0){
+ const t=engineTopology(config),jet=config.architecture==='turbojet';
+ const active=id=>!(id==='ipt'&&!t.ipt)&&!(id==='booster'&&!t.lpc)&&!(id==='lpt'&&!t.lpt);
+ const path=(jet?['inlet','stators','fan','hpc','diffuser','combustor','hpt','exhaust']:['inlet','fan','stators','booster','hpc','diffuser','combustor','hpt','ipt','lpt','exhaust']).filter(active);
+ return ASSEMBLIES.map(([id,name,description],index)=>{
+  if(jet&&id==='nacelle'){name='Engine casing';description='The turbojet casing surrounds the compressor, combustor and turbine. There is no separate bypass duct; the casing remains visible in assembled and exploded views.'}
+  if(jet&&id==='stators'){name='Inlet guide vanes';description='Stationary inlet vanes sit immediately ahead of the first compressor rotor, directing air into the single-shaft compressor train.'}
+  if(jet&&id==='fan'){name='First compressor rotor & spinner';description='A turbojet has no bypass fan. This first axial compressor rotor feeds the remaining compressor stages on the same shaft.'}
+  const rank=path.indexOf(id),offset=[rank<0?0:(rank-(path.length-1)/2)*(jet?.52:.7)*exploded,0,0];
+  if(id==='shafts')offset.splice(0,3,0,-1.3*exploded,1.3*exploded);
+  if(id==='accessories')offset.splice(0,3,-.8*exploded,-1.6*exploded,-1.1*exploded);
+  if(id==='fuel')offset.splice(0,3,.2*exploded,1.65*exploded,.8*exploded);
+  if(id==='nacelle')offset.splice(0,3,0,2.7*exploded,-.4*exploded);
+  return {id,name,description,index,active:active(id),offset};
+ });
+}

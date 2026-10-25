@@ -1,5 +1,5 @@
 import {ENGINES,ASSEMBLIES,assemblyLayout,engineTopology} from './engine-catalog.js';
-import {defaults,presets,validateBuild,cycle} from './engine.js';
+import {defaults,presets,validateBuild,cycle} from './engine.js?v=assemblies1';
 import {setupWorkspace} from './workspace.js';
 setupWorkspace();
 

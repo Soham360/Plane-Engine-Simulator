@@ -1,1 +1,1 @@
-export {createScene} from './scene-renderer.js?v=repairs2';
+export {createScene} from './scene-renderer.js?v=inspection3';

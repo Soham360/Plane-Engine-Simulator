@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {cacheAssemblyBounds} from './assembly-bounds.js';
-import {engineTopology,assemblyLayout} from './engine-catalog.js?v=repairs2';
+import {engineTopology,assemblyLayout} from './engine-catalog.js?v=inspection3';
 // Engine axis is X. Every service assembly owns its geometry, selection and transform.
 export function makeEngine(config,clip){
  const root=new T.Group(),rotors=[],shells=[],materials=new Set(),geometries=new Set(),topology=engineTopology(config),jet=config.architecture==='turbojet';

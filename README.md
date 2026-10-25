@@ -45,3 +45,5 @@ Named presets: CFM56-7B (737NG), GE90-115B (777), and Trent XWB (A350). Their pu
 
 These are original educational reconstructions, not manufacturer CAD, complete maintenance assemblies or licensed digital twins. Internal contours, non-fan blade counts, fasteners, service equipment, proportions and materials are illustrative. Changing geometry creates a modified study of the named engine. Thrust, fuel flow, temperatures and RPM remain the simplified teaching model rather than published engine performance; the temperature and pressure sliders are educational cycle inputs, not real operating limits.
 
+
+Inspection controls: drag **Separate** for continuous 0–100% assembly separation. **Focus part** frames the selected module; **Fit engine** returns to the complete model. Transitions can be interrupted and respect reduced motion.
